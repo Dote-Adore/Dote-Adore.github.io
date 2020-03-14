@@ -158,7 +158,7 @@ void main()
 //...
 ```
 最终结果如下：
-![shader效果]({{site.url}}/assets/img/posts/result.gif)
+![shader效果](https://ncutradingplatform.oss-cn-shanghai.aliyuncs.com/posts/Result.gif)
 
 是不是很完美O(∩_∩)O~~当然，您也可以加一些贴图在上面，使得该效果更加炫酷，
 
