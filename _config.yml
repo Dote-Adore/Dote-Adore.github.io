@@ -25,7 +25,7 @@ menu:
 # Remove the item if you don't need it
 github_username: Dote-Adore
 # facebook_username: facebook_username
-# twitter_username: twitter_username
+twitter_username: zl1379382440
 # instagram_username: instagram_username
 # linkedin_username: linkedin_username
 # medium_username: medium_username
@@ -40,7 +40,7 @@ two_columns_layout: true
 
 # Advanced Settings
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site
+url: "https://dote-adore.github.io/" # the base hostname & protocol for your site
 google_analytics: "UA-XXXXXXXX-X"
 language: "en"
 categories_folder: category

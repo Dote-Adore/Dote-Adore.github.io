@@ -3,6 +3,7 @@ date: 2020-03-14 12:27:40 +0800
 layout: post
 title: 游戏中主角被遮挡解决方法
 subtitle: 玩家被遮挡怎么办？这篇教程帮助你！
+description: 游戏中角色被遮挡显示的解决方法
 category: opengl
 image: >-
     https://ncutradingplatform.oss-cn-shanghai.aliyuncs.com/posts/marioOdysseyShotScreen2.png
