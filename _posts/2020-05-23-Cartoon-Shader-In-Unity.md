@@ -9,7 +9,7 @@ image: >-
     https://ncutradingplatform.oss-cn-shanghai.aliyuncs.com/posts/Zelda_Mifa.png
 tags:
   - unity
-  -shader
+  - shader
   - 图形学
   - 游戏设计技巧
 paginate: true
@@ -20,3 +20,10 @@ paginate: true
 《崩坏3》等游戏作品；在如今众多的写实风格、堆砌各种光照特效的时代，
 使用一个特别的卡通渲染会将你的作品从之间脱颖而出；
 下面，跟随我一起使用unity制作一个简单的卡通渲染风格吧~
+
+## 分析
+常见的卡通渲染会将阴影、高光和漫反射光线有非常明显的界限，两种颜色之间不会进行平滑过度，
+![基于物理的渲染和卡通渲染]({{site.url}}/assets/img/posts/BPRAndNPR.png)
+
+
+
