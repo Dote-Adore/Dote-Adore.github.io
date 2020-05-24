@@ -3,7 +3,7 @@ date: 2020-05-23 22:50:00 +0800
 layout: post
 title: 卡通渲染
 subtitle: 使用unity制作一个简单的卡通渲染shader~
-description: 《动物森友会》中拱形地形实现原理
+description: unity卡通材质的渲染教程
 category: unity
 image: >-
     https://ncutradingplatform.oss-cn-shanghai.aliyuncs.com/posts/Zelda_Mifa.png
