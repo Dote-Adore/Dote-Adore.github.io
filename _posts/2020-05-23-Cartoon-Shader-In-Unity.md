@@ -182,11 +182,11 @@ v2f vert(a2v v)
 
 加入高光后，我们可以得到如下的效果：
 
-![阴影]({{site.url}}/assets/img/posts/Glossiness.png)
+![高光]({{site.url}}/assets/img/posts/Glossiness.png)
 ### 给你的反射润润色！
 这么看来，似乎已经能够已经有比较好的效果，但是总觉得缺少的什么，
-现在，我们清楚大名鼎鼎的[菲涅尔反射](https://www.zhihu.com/question/53022233/answer/401412842)！,
-我们以塞尔达传说为例：
+现在，我们请出大名鼎鼎的[菲涅尔反射](https://www.zhihu.com/question/53022233/answer/401412842)！,
+以塞尔达传说为例：
 ![塞尔达传说的菲涅尔]({{site.url}}/assets/img/posts/FresnelInZelda.png)
 可以看到，模型的向光明的边缘处，有一条比较细的白边，这就是菲涅尔造成的结果，
 我们使用菲涅尔的简化公式：
@@ -371,7 +371,7 @@ fixed4 frag(v2f v):SV_Target
         }
 ```
 将所有的效果开启之后，我们可以得到以下的效果：
-![开启描边]({{site.url}}/assets/img/posts/OutLineON.png)
+![开启描边]({{site.url}}/assets/img/posts/OutLineOn.png)
 
 当然，这个直接向外扩展法线存在一些问题，如果该模型是一个cube，使用描边后：
 ![描边的问题]({{site.url}}/assets/img/posts/BadOutline.png)
