@@ -104,7 +104,7 @@ fixed4 frag(v2f v) :SV_Target
 }     
 ```
 通过上述代码，我们可以对阴影处和被光源照射处分别赋予两种颜色：
-![阴影]({{site.url}}/assets/img/posts/Shadow.png)
+![阴影]({{site.url}}/assets/img/posts/shadow.png)
 
 但是，这只是通过片元的位置判断是否处于被光面，但是对于其前面的物体挡住了光线
 无法判断是否在其阴影的投影中：
