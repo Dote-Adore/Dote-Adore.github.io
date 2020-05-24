@@ -378,6 +378,7 @@ fixed4 frag(v2f v):SV_Target
                 return fixed4(0,0,0,1);
             }
                 ENDCG
+
         }
 ```
 将所有的效果开启之后，我们可以得到以下的效果：
