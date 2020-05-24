@@ -232,90 +232,100 @@ fixed4 frag(v2f v):SV_Target
 
 以下是该pass的完整源码：
 ```js
-        Pass
-        {
-            Tags{"LightMode" = "ForwardBase"}
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-        	#pragma multi_compile_fog
-            #pragma multi_compile_fwdbase
-            #include "UnityCG.cginc"
-            #include "Lighting.cginc"
-           #include "AutoLight.cginc"
-
-            //要想有正确的衰减内置变量等，必须要有这句
-
-            struct a2v
-            {
-                float4 vertex : POSITION;
-                fixed3 normal : NORMAL;
-                float4 texcoord : TEXCOORD0;
-            };
-            struct v2f
-            {
-                float4 pos : SV_POSITION;
-                fixed3 worldNormal:TEXCOORD0;
-                //宏表示为定义一个float4的采样坐标，放到编号为1的寄存器中
-                float4 worldSpacePos:COLOR;
-                // 存储纹理坐标
-                float2 uv:TEXCOORD2;
-                SHADOW_COORDS(1)
-            };
-            float4 _Color;
-            float4 _ColorShadow;
-            float4 _GlossinessColor;
-            float _Glossiness;
-            //float _OutineStrength;
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
-            v2f vert(a2v v)
-            {
-                v2f o;
-                o.pos = UnityObjectToClipPos(v.vertex);
-                o.worldSpacePos = mul(unity_ObjectToWorld, v.vertex);
-                o.worldNormal = UnityObjectToWorldNormal(v.normal);
-                o.uv = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
-                // //根据变换求解上面结构体中的float4坐标，unity5中采用的是屏幕空间阴影贴图
-                TRANSFER_SHADOW(o)
-                return o;
-            }
-
-            fixed4 frag(v2f v) :SV_Target
-            {
-                // 将阴影部分和接受光源的部分分开
-                // 获取直线光的位置
-                fixed3 lightDir = normalize(_WorldSpaceLightPos0.xyz);
-                float diff = dot(v.worldNormal, lightDir);
-                // 纹理贴图
-                fixed4 textureColor = tex2D(_MainTex, v.uv);
-                // 获取视角方向
-                // 有问题
-               // float3 viewDir = UNITY_MATRIX_V[2].xyz;
-                float3 viewDir = normalize(_WorldSpaceCameraPos - v.worldSpacePos.xyz);
-                // 计算反射方向
-                fixed3 reflectDir = normalize(reflect(-lightDir, v.worldNormal));
-                // 反射方向与视角方向点乘
-                float reflectDotView = dot(viewDir, reflectDir);
-                float spec = pow(max(reflectDotView, 0), _Glossiness);
-                float3 specular = 0;
-                if(spec>0.7)
-                specular =  _GlossinessColor.rgb;
-                // 获取shadow
-                float shadow = SHADOW_ATTENUATION(v);
-
-                // 描边，如果视角方向与法线方向越垂直，点乘越接近0，则越为边缘
-                //if (dot(viewDir, v.worldNormal) < _OutineStrength /2)
-                //{
-               //     return fixed4(0,0,0,1);
-               // }
-                if (diff < 0||shadow<0.95)
-                    return (_ColorShadow* textureColor +float4(specular,1))*_LightColor0;
-                else
-                    return (_Color* textureColor + float4(specular, 1))* _LightColor0;
-            }
-            ENDCG
-        }
+               {
+                   Tags{"LightMode" = "ForwardBase"}
+                   CGPROGRAM
+                   #pragma vertex vert
+                   #pragma fragment frag
+               	#pragma multi_compile_fog
+                   #pragma multi_compile_fwdbase
+                   #include "UnityCG.cginc"
+                   #include "Lighting.cginc"
+                  #include "AutoLight.cginc"
+       
+                   //要想有正确的衰减内置变量等，必须要有这句
+       
+                   struct a2v
+                   {
+                       float4 vertex : POSITION;
+                       fixed3 normal : NORMAL;
+                       float4 texcoord : TEXCOORD0;
+                   };
+                   struct v2f
+                   {
+                       float4 pos : SV_POSITION;
+                       fixed3 worldNormal:TEXCOORD0;
+                       //宏表示为定义一个float4的采样坐标，放到编号为1的寄存器中
+                       float4 worldSpacePos:COLOR;
+                       // 存储纹理坐标
+                       float2 uv:TEXCOORD2;
+                       SHADOW_COORDS(1)
+                   };
+                   float4 _Color;
+                   float4 _ColorShadow;
+                   float4 _GlossinessColor;
+                   float _Glossiness;
+                   //float _OutineStrength;
+                   sampler2D _MainTex;
+                   float4 _MainTex_ST;
+       
+                   float _fresnelScale;
+                   float _fresnelBase;
+                   float _fresnelIndensity;
+                   float4 _fresnelColor;
+                   v2f vert(a2v v)
+                   {
+                       v2f o;
+                       o.pos = UnityObjectToClipPos(v.vertex);
+                       o.worldSpacePos = mul(unity_ObjectToWorld, v.vertex);
+                       o.worldNormal = UnityObjectToWorldNormal(v.normal);
+                       o.uv = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+                       // //根据变换求解上面结构体中的float4坐标，unity5中采用的是屏幕空间阴影贴图
+                       TRANSFER_SHADOW(o)
+                       return o;
+                   }
+       
+                   fixed4 frag(v2f v) :SV_Target
+                   {
+                       // 将阴影部分和接受光源的部分分开
+                       // 获取直线光的位置
+                       fixed3 lightDir = normalize(_WorldSpaceLightPos0.xyz);
+                       float diff = dot(v.worldNormal, lightDir);
+                       // 纹理贴图
+                       fixed4 textureColor = tex2D(_MainTex, v.uv);
+                       // 获取视角方向
+                       // 有问题
+                      // float3 viewDir = UNITY_MATRIX_V[2].xyz;
+                       float3 viewDir = normalize(_WorldSpaceCameraPos - v.worldSpacePos.xyz);
+                       // 计算反射方向
+                       fixed3 reflectDir = normalize(reflect(-lightDir, v.worldNormal));
+                       // 反射方向与视角方向点乘
+                       float reflectDotView = dot(viewDir, reflectDir);
+                       float spec = pow(max(reflectDotView, 0), _Glossiness);
+                       float4 specular = 0;
+                       if(spec>0.7)
+                       specular =  float4(_GlossinessColor.rgb,1);
+                       // 获取shadow
+                       float shadow = SHADOW_ATTENUATION(v);
+       
+                 
+                       // 菲涅尔反射
+                       float fresnel = _fresnelBase + _fresnelScale * pow(1 - dot(viewDir,v.worldNormal), _fresnelIndensity);
+                       // return lerp(_Color, _GlossinessColor, fresnel)* _GlossinessColor.a;
+                       fixed4 diffuseColor;
+                       if (diff < 0 || shadow < 0.95)
+                       {
+                           diffuseColor = (_ColorShadow * textureColor) * _LightColor0;
+                           return diffuseColor;
+                       }
+                       else
+                           diffuseColor = (_Color * textureColor + specular) * _LightColor0;
+                           return lerp(diffuseColor, diffuseColor * (1 - _fresnelColor.a) + _fresnelColor * _fresnelColor.a, fresnel);
+                      
+                       
+                   }
+                   ENDCG
+               }
 ```
 ### 最后一步，描一下边！
 卡通卡通，当然少不了描边啦，描边分为两种，一种是只描述其轮廓，
