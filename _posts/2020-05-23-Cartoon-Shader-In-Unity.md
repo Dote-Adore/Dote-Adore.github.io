@@ -70,8 +70,8 @@ paginate: true
 ### 阴影
 如何知道该区域是否为阴影区域？<br>
 很简单！只要知道物体的法线方向和光照的方向！<br>
-高中数学告诉我们，两个向量的点乘可以反应两个向量的夹角，如果大于0，则夹角小于90度，两者方向越平行，
-如果点乘结果等于0，则两个向量互相垂直，如果小于0，则两个夹角大于90度：
+高中数学告诉我们，两个向量的点乘可以反应两个向量的夹角: 当夹角小于90度，点乘结果>0,点乘结果越大,两者方向越平行；
+则两个向量互相垂直，点乘结果为0；当夹角大于90度，则点乘结果小于0。
 通过该性质我们很容易知道法线方向与光线方向的夹角如下图所示：
 ![描边]({{site.url}}/assets/img/posts/CalShadow.png)
 令法向量和光线向量都进行了归一化，可以知道a dot L = 1：
@@ -79,13 +79,14 @@ paginate: true
 在unity中，我们需要引入 `#include "Lighting.cginc"`,然后
 调用`_WorldSpaceLightPos0.xyz`便获取到直线光照的方向的反方向<br>
 shader中实现如下：
+
 ```js
 v2f vert(a2v v)
 {
     v2f o;
     // ...
     // 得到世界法线方向
-     o.worldNormal = UnityObjectToWorldNormal(v.normal);
+     o.worldNormal=UnityObjectToWorldNormal(v.normal);
     //...
     return o;
 }
