@@ -21,6 +21,7 @@ paginate: true
 使用一个特别的卡通渲染会将你的作品从之间脱颖而出；
 下面，跟随我一起使用unity制作一个简单的卡通渲染风格吧~
 
+* 注意噢，在最后我会放出源码的下载链接，有需要的小伙伴可以直接下载~
 ## 分析
 常见的卡通渲染会将阴影、高光和漫反射光线有非常明显的界限，两种颜色之间不会进行平滑过度。
 ![基于物理的渲染和卡通渲染]({{site.url}}/assets/img/posts/BPRAndNPR.png)
@@ -389,3 +390,5 @@ fixed4 frag(v2f v):SV_Target
 描边可以很清楚的看见他与模型是分开了，应用这种方式描边，一定要注意该模型是否适合；
 <br>
 <br><br>好了，本次教程结束，如果你有什么更好的描边方式和卡通渲染方式，欢迎在下面留言讨论噢~
+<br><br>
+[点击此处下载该shader源码](https://ncutradingplatform.oss-cn-shanghai.aliyuncs.com/posts/Cartoon/Cartoon.shader)
