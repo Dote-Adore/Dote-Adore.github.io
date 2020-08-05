@@ -17,7 +17,7 @@ paginate: true
 ## 项目一：横板移动闯关游戏
 担任角色：主程、场景搭建、部分关卡设计 <br>
 演示视频：
-<iframe frameborder="0" src="https://v.qq.com/txp/iframe/player.html?vid=c3126qce6a3" allowFullScreen="true" height="600px"></iframe>
+<iframe frameborder="0" src="https://v.qq.com/txp/iframe/player.html?vid=c3126qce6a3" allowFullScreen="true" height="370px"></iframe>
 项目描述：该Demo使用UE4进行制作；其特点是吸取了游戏《inside》的运镜风格，在玩家进行游玩的过程中，可以针对不同的场景更改镜头角度、镜头手臂距离等一系列的参数，并使其平滑过渡，进而增加游戏的代入感。同时，对于横板闯关游戏的基本特点：人物移动、交互、动画、ui、死亡机制、场景敌人等都有实现；
 
 ## 项目二：剧情冒险向游戏
@@ -29,3 +29,6 @@ paginate: true
 ## 项目三：第一人称医疗教育演示
 项目描述：该游戏使用unity进行开发，意在通过寓教于乐的方式，以新颖的教学方式来带动学生参与到教学项目中；
 学生在进入应用程序后，通过漫游场景，找出场景中错误的地方，进而达到教育目的；
+在一定范围内，当玩家的准星瞄准到错误的地方时，目标物体会平滑地移动到相机面前，
+并且出现该错误的介绍，介绍用来描述错误操作的详情，这使得学生更能深入理解错误的原因
+![演示动图](https://ncutradingplatform.oss-cn-shanghai.aliyuncs.com/posts/EducationDemo.gif)
