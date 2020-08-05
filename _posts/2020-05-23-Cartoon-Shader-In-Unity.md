@@ -1,7 +1,7 @@
 ---
 date: 2020-05-23 22:50:00 +0800
 layout: post
-title: 卡通渲染
+title: 卡通测试渲染
 subtitle: 使用unity制作一个简单的卡通渲染shader~
 description: unity卡通材质的渲染教程
 category: unity
